@@ -1,0 +1,19 @@
+{
+  "name": "proofareafe",
+  "version": "1.0.1",
+  "description": "Notifaction module",
+  "main": "index.js",
+  "scripts": {
+    "test": "start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ajaysingh56929/ProofAreaFE.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ajaysingh56929/ProofAreaFE/issues"
+  },
+  "homepage": "https://github.com/Ajaysingh56929/ProofAreaFE#readme"
+}

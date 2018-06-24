@@ -1,5 +1,5 @@
 	var myproofyapp = angular.module('myproofyapp', ['ngRoute']);
-	myproofyapp.appUrl = "http://192.168.1.27/myappapi/index.php/";
+	myproofyapp.appUrl = "http://127.0.0.1/projects/ProofArea/index.php/";
 	var drawCount = 0,radius = 10,strokeWidth = 4;
     var stokeColor = '#000000';//$('div.dropdown-menu').find('.selected').attr('data-color')
     var canvasEventRegister = false;
@@ -457,7 +457,7 @@
             }).then(function mySuccess(response) {
                 $scope.total_size = response.data.total_size;
                 $scope.total_percentage = response.data.total_percentage;
-                myproofyapp.fn.getUserDetail = {'id':4};
+                myproofyapp.fn.getUserDetail = {'id':1};
                 $scope.userId = myproofyapp.fn.getUserDetail.id;
             }, function myError(response) {
             });
