@@ -1,0 +1,45 @@
+<!-- <div class="proof-TopBar"></div> -->
+<div class="mp-FolderItemContent mp-ItemContent">
+	<div class="mp-ItemContent-header">
+		<h2 class="mp-ItemContent-title"><i class="material-icons dp48 changeColor">folder_shared</i>&nbsp;{{sectionTitle}}</h2>
+	</div>
+</div>
+<div class="mp-FolderItemContent mp-ItemContent">
+	<div class="mp-folderItemHeader">
+		<div class="mp-filesListView mp-headerCls">
+			<div class="mp-imageIcon mp-sideViewBlock">
+					<i class="material-icons dp48 changeColor">face</i>
+			</div>
+			<div class="mp-imageinfo mp-sideViewBlock">
+				<span class="fileName">
+					User
+				</span>
+			</div>
+			<div class="mp-imageinfo mp-sideViewBlock">
+				<span class="fileName">
+					Unlink
+				</span>
+			</div>
+		</div>
+		<div class="mp-filesListView" ng-repeat="shareData in share" data-imageId="{{shareData}}">
+			<div class="mp-imageIcon mp-sideViewBlock">
+				<div class="m0 userback u_back{{shareData}} u_{{shareData}}"></div>
+			</div>
+			<div class="mp-imageinfo mp-sideViewBlock">
+				<span class="fileName u_name{{shareData}}">
+				</span>&nbsp;<span class="mp-emailStyle">(<span class="fileName u_email{{shareData}}"></span>)</span>
+			</div>
+			<div class="mp-imageinfo mp-sideViewBlock">
+				<span ng-if="shareData==userId">
+					Creator
+				</span>
+				<span ng-if="userId==loginUserId && shareData!=userId" ng-click="unshareImage($event,shareData)">
+					Unlink
+				</span>
+				<span ng-if="userId!=loginUserId && shareData!=userId">
+					Permission Denied
+				</span>
+			</div>
+		</div>
+	</div>
+</div>

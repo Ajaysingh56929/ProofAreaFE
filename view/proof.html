@@ -1,0 +1,116 @@
+<div class="proof-TopBar proofView">
+	<div class="dropdown mp-imageInfo">
+	  	<button class="dropbtn fileHead"><i class="fa fa-picture-o"></i>{{imageData.image_name}}</button>
+	</div>
+	<div class="dropdown mp-imageColor">
+	  <button class="dropbtn">Color<i class="material-icons dp48 changeColor">keyboard_arrow_down</i></button>
+	  <div class="dropdown-content">
+		<div class="colors selected" data-color="#000000" style="background:#000000;"></div>
+		<div class="colors" ng-click="updateStokeColor($event)" data-color="#0D6DCE" style="background:#0D6DCE;">&nbsp;</div>
+		<div class="colors" ng-click="updateStokeColor($event)" data-color="#E8423C" style="background:#E8423C;">&nbsp;</div>
+		<div class="colors" ng-click="updateStokeColor($event)" data-color="#B200FF" style="background:#B200FF;">&nbsp;</div>
+		<div class="colors" ng-click="updateStokeColor($event)" data-color="#0a2a5a" style="background:#0a2a5a;">&nbsp;</div>
+		<div class="colors" ng-click="updateStokeColor($event)" data-color="#EE4884" style="background:#EE4884;">&nbsp;</div>
+		<div class="colors" ng-click="updateStokeColor($event)" data-color="#8860C8" style="background:#8860C8;">&nbsp;</div>
+		<div class="colors" ng-click="updateStokeColor($event)" data-color="#2192E8" style="background:#2192E8;">&nbsp;</div>
+		<div class="colors" ng-click="updateStokeColor($event)" data-color="#FF5722" style="background:#FF5722;">&nbsp;</div>
+		<div class="colors" ng-click="updateStokeColor($event)" data-color="#F9B128" style="background:#F9B128;">&nbsp;</div>
+		<div class="colors" ng-click="updateStokeColor($event)" data-color="#4A4A4A" style="background:#4A4A4A;">&nbsp;</div>
+		<div class="colors" ng-click="updateStokeColor($event)" data-color="#607D8B" style="background:#607D8B;">&nbsp;</div>
+		<div class="colors" ng-click="updateStokeColor($event)" data-color="#009385" style="background:#009385;">&nbsp;</div>
+		<div class="colors" ng-click="updateStokeColor($event)" data-color="#795548" style="background:#795548;">&nbsp;</div>
+		<div class="colors" ng-click="updateStokeColor($event)" data-color="#CA3A38" style="background:#CA3A38;">&nbsp;</div>
+		<div class="colors" ng-click="updateStokeColor($event)" data-color="#1b926c" style="background:#1b926c;">&nbsp;</div>
+		<div class="colors" ng-click="updateStokeColor($event)" data-color="#72A83F" style="background:#72A83F">&nbsp;</div>
+		<div class="colors" ng-click="updateStokeColor($event)" data-color="#01B4C7" style="background:#01B4C7">&nbsp;</div>
+	  </div>
+	</div>
+	<div class="dropdown mp-imageSize">
+	  <button class="dropbtn">Size<i class="material-icons dp48 changeColor">keyboard_arrow_down</i></button>
+	  <div class="dropdown-content">
+		<a href="javascript:void(0);" ng-click="updateStokeWidth($event,1)" class="stokeWidth">1</a>
+	    <a href="javascript:void(0);" ng-click="updateStokeWidth($event,2)" class="stokeWidth">2</a>
+	    <a href="javascript:void(0);" ng-click="updateStokeWidth($event,3)" class="stokeWidth">3</a>
+	    <a href="javascript:void(0);" ng-click="updateStokeWidth($event,4)" class="stokeWidth selected">4</a>
+	    <a href="javascript:void(0);" ng-click="updateStokeWidth($event,5)" class="stokeWidth">5</a>
+	    <a href="javascript:void(0);" ng-click="updateStokeWidth($event,6)" class="stokeWidth">6</a>
+	    <a href="javascript:void(0);" ng-click="updateStokeWidth($event,7)" class="stokeWidth">7</a>
+	    <a href="javascript:void(0);" ng-click="updateStokeWidth($event,8)" class="stokeWidth">8</a>
+	    <a href="javascript:void(0);" ng-click="updateStokeWidth($event,9)" class="stokeWidth">9</a>
+	    <a href="javascript:void(0);" ng-click="updateStokeWidth($event,10)" class="stokeWidth">10</a>
+	  </div>
+	</div>
+	<div class="dropdown mp-editableIcons">
+	  	<button class="dropbtn" ng-click="initEditBtn($event)" data-action="pencil"><i class="material-icons dp48">edit</i></button>
+	</div>
+	<div class="dropdown mp-editableIcons">
+	  	<button class="dropbtn" ng-click="initEditBtn($event)" data-action="square"><i class="material-icons dp48">crop_square</i></button>
+	</div>
+	<div class="dropdown mp-editableIcons">
+	  	<button class="dropbtn" ng-click="initEditBtn($event)" data-action="line"><i class="material-icons dp48">call_made</i></button>
+	</div>
+	<div class="dropdown mp-editableIcons">
+	  	<button class="dropbtn" ng-click="initEditBtn($event)" data-action="download"><i class="material-icons dp48">file_download</i></button>
+	</div>
+</div>
+<div class="mp-ItemContent">
+	<!-- <div class="mp-ItemContent-header">
+		<h2 class="mp-ItemContent-title">{{sectionTitle}}</h2>
+	</div> -->	
+	<div class="mainCanvasArea">
+		<canvas id="canvasTemp"></canvas>
+		<canvas id="canvasarea"></canvas>
+	</div>
+	<div class="commentSection">
+		<div class="detailBox">
+		    <div class="titleBox">
+		      <label>Comment</label>
+		    </div>
+		    <div class="actionBox">
+		        <ul class="commentList">
+		            <li ng-if="commentRecord.replyId==0" ng-repeat="commentRecord in comments" data-url="{{commentRecord.dataUrl}}" ng-click="loadProofedFile($event)">
+	            		<div class="userIcon createTableCell" data-a="replyCommentArray">
+		            		<div class="userback u_back{{commentRecord.userId}} u_{{commentRecord.userId}}"></div>
+		            	</div>
+		            	<div class="commentDetail createTableCell">
+		            		{{commentRecord.comment}}
+		            	</div>
+		            	<div class="mp-toolbar">
+		            		<span uploadedDate="{{commentRecord.posted_date}}" updatedtime></span>
+		            		<span class="replyCommentText" data-commentId="" ng-click="hideShow=(hideShow ? false : true)">Reply</span>
+		            	</div>
+		            	<div class="reply">
+							<div class="commentReplyli" ng-if="commentRecord.id==internalRecord.replyId" ng-repeat="internalRecord in comments">
+								<div class="userIcon createTableCell" data-a="replyCommentArray">
+				            		<div class="userback u_back{{internalRecord.userId}} u_{{internalRecord.userId}}"></div>
+				            	</div>
+				            	<div class="commentDetail createTableCell">
+				            		{{internalRecord.comment}}
+				            	</div>
+				            	<div class="mp-toolbar">
+				            		<span uploadedDate="{{internalRecord.posted_date}}" updatedtime></span>
+				            	</div>
+							</div>
+							<div class="form-inline replyCommentPanelArea" role="form" ng-if="hideShow">
+						        <div class="form-group">
+					            	<input class="form-control commentval" type="text" placeholder="Comment reply"/>
+					            </div>
+					            <div class="form-group">
+					                <button class="btn btn-default postComment" ng-click="postComment($event)" data-subComment="true" data-commentId="{{commentRecord.id}}">Reply</button>
+					            </div>
+					        </div>
+						</div>	
+		            </li>
+		        </ul>
+		        <div class="form-inline commentPanelArea" role="form">
+			        <div class="form-group">
+		            	<input class="form-control commentval" type="text" placeholder="Post your comment" ng-focus="canvasView($event)"/>
+		            </div>
+		            <div class="form-group">
+		                <button class="btn btn-default postComment" ng-click="postComment($event)" data-subComment="false">Comment</button>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+	</div>
+</div>

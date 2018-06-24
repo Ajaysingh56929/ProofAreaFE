@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html ng-app="myproofyapp">
+    <head>
+        <meta charset="UTF-8">
+        <title>Dashboard</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="css/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+		<link href="css/font-awesome-4.7.0/css/font-awesome-animation.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet" type="text/css" />
+        <link href="http://192.168.1.27/myappapi/index.php/files/getCss" rel="stylesheet" id="userCss" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet"> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script> -->
+		<!-- Angular Files SPELLS -->
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+        <script src="js/app.js"></script>
+    </head>
+<body class="skin-blue" ng-controller="mainController">
+	<div class="proof-header">
+		<div class="mainhead">
+			<div class="mp-leftheader">
+			</div>
+			<div class="mp-rightheader">
+				
+				<div class="dropdown">
+					<span class="expire topIconCls">
+						<span>Trial period expire after 20 days</span>
+					</span>
+				</div>
+				<div class="rightHeaderPanel">
+					<div class="dropdown">
+						<span  class="topIconCls" ng-click="notificationHideShow($event)">
+							<div class="count" style="display:none;">{{count}}</div>
+							<i class="material-icons dp48">notifications_none</i>
+						</span>
+						<div class="notificationBox">
+							<div class="notifiHead">Notification</div>
+
+							<div class="notificationPanel">
+							<div ng-repeat="notifications in notification">
+								<!-- File Delete -->
+								<div ng-class="{recentNoti: notifications.view_status == false}" ng-if="notifications.status=='delete' && notifications.action=='file_delete'" class="notificationContent">
+									<div class="fileDelete">
+										<div class="fileImage">
+											<div class="userback u_back{{notifications.updated_by}} u_{{notifications.updated_by}}"></div>
+										</div>
+										<div class="contentDetail">
+											<span class="userName u_name{{notifications.updated_by}}"></span>
+											<span class="fade">&nbsp;has removed&nbsp;<span class="dark" data-id="{{notifications.content.image}}">{{notifications.content.image}}</span>&nbsp;file</span>
+											<div class="showImageView">
+												<img src="{{notifications.content.image}}">
+											</div>
+											<span uploadedDate="{{notifications.updated_date}}" updatedtime></span>
+										</div>
+									</div>
+								</div>
+								<!-- File Approve -->
+								<div ng-class="{recentNoti: notifications.view_status == false}" ng-if="notifications.status=='update' && notifications.action=='file_approve'" class="notificationContent">
+									<div class="fileDelete">
+                                    <div class="fileImage">
+                                   		<div class="userback u_back{{notifications.updated_by}} u_{{notifications.updated_by}}"></div>
+                                    </div>
+                                    <div class="contentDetail">
+	                                    <span class="userName u_name{{notifications.updated_by}}"></span>
+	                                    
+	                                    <span ng-if="notifications.content.approve==true">
+	                                    	<span class="fade">&nbsp;has approve &nbsp;<span class="dark">{{notifications.content.image}}</span>&nbsp;file</span>
+	                                    </span>
+	                                    <span ng-if="notifications.content.approve==false">
+	                                    	<span class="fade">&nbsp;has disapprove &nbsp;<span class="dark">{{notifications.content.image}}</span>&nbsp;file</span>
+	                                    </span>
+	                                    <div class="showImageView">
+	                                    <img src="{{notifications.content.image}}">
+	                                    <span class="notifiApprove"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
+	                                    </div>
+	                                    <span uploadedDate="{{notifications.updated_date}}" updatedtime></span>
+	                                </div>
+                                    </div>
+								</div>
+								<!-- File share -->
+								<div ng-class="{recentNoti: notifications.view_status == false}" ng-if="notifications.status=='update' && notifications.action=='file_share'" class="notificationContent">
+									<div class="fileDelete">
+                                    <div class="fileImage">
+                                    	<div class="userback u_back{{notifications.updated_by}} u_{{notifications.updated_by}}"></div>
+                                    </div>
+                                    <div class="contentDetail">
+                                    <span class="userName u_name{{notifications.updated_by}}"></span>
+
+
+
+                                    <span class="fade">&nbsp;has shared&nbsp;<span class="dark">{{notifications.content.image}}</span>&nbsp;file with <span class="dark"></span> &nbsp;</span>
+
+                                    <div class="showImageView">
+                                    <img src="{{notifications.content.image}}">
+                                    </div>
+                                    <span uploadedDate="{{notifications.updated_date}}" updatedtime></span>
+                                    </div>
+                                    </div>
+								</div>
+								<!-- Add Comment -->
+								<div ng-class="{recentNoti: notifications.view_status == false}" ng-if="notifications.status=='add' && notifications.action=='comment_add'" class="notificationContent">
+									<div class="fileDelete">
+                                    <div class="fileImage">
+                                    	<div class="userback u_back{{notifications.updated_by}} u_{{notifications.updated_by}}"></div>
+                                    </div>
+                                    <div class="contentDetail">
+	                                    <span class="userName u_name{{notifications.updated_by}}"></span>
+	                                    <span class="fade">&nbsp;has posted a comment on the file&nbsp;-<span class="dark">{{notifications.content.image}}</span>&nbsp;file</span>
+	                                    <div class="showImageView">
+		                                    <div class="imageCls"><img src="uploadImage/'+response[i].content.image+'">
+		                                    <span uploadedDate="{{notifications.updated_date}}" updatedtime></span>
+		                                    <div><p>{{notifications.content.comment}}</p></div>
+		                                    </div>
+                                    	</div>
+                                    </div>
+									</div>
+								</div>	
+							</div>
+							</div>	
+						</div>
+					</div>
+				</div>
+				<div class="rightHeaderPanel">
+					<div class="dropdown">
+					  <span class="topIconCls"><i class="material-icons dp48">settings</i></span>
+					  <div class="dropdown-content" style="float:right;right: 0;">
+					    <a href="javascript:void(0);" ng-click="uploadImageFile($event,'Desktop')"><input type="file" id="imgupload" style="display:none"/>Manage account</a>
+					    <a href="javascript:void(0);" ng-click="uploadImageFile($event,'GoogleDrive')">Change Permission</a>
+					  </div>
+					</div>
+				</div>
+				<div class="rightHeaderPanel">
+					<div class="dropdown">
+					  <div class="topIconCls"><div class="userback u_{{userId}} u_back{{userId}}"></div></div>
+					  <div class="dropdown-content" style="float:right;right: 0;">
+					    <a href="javascript:void(0);">Update info</a>
+					    <a href="javascript:void(0);">Change Password</a>
+					    <a href="javascript:void(0);">Logout</a>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="proof-container">
+		<div class="proof-leftNav">
+			<div class="proof-leftNav-menu">
+				<div class="form-group">
+	            	<input class="form-control commentval" type="text" placeholder="Search everything">
+	            </div>
+				<ul>
+				<li ng-repeat="item in items" class="item" ng-class="{'active': item.id == states.activeItem}" ng-click="states.activeItem=item.id"><a href="{{item.link}}">{{item.title}}</a></li>
+				</ul>
+				<div class="mp-accountDetail">
+					<div class="mp-accountSpace">
+						{{total_size}} used of 2 GB
+					</div>
+					<div class="mp-accountSpaceslider">
+						<div class="progressBar" style="width:{{total_percentage}}%;"></div>
+					</div>
+				</div>
+			</div>
+ 		</div>
+ 		<div class="proof-centerArea">
+ 			<div ng-view></div>
+ 		</div>	
+ 	</div>
+ 	<div class="loaderSmall">
+		<div class="loaderDivSmall">
+		</div>
+		<div class="loaderContainerSmall">
+			<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+		</div>
+	</div>
+	<!-- <div class="windowShim">
+	</div> -->
+</body>
+</html>
