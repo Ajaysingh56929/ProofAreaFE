@@ -15,12 +15,22 @@
 	            templateUrl : 'view/dashboard.html',
 	            controller  : 'dashboardController'
 	        })
-	        .when('/shared', {
+	        .when('/discussion', {
+                templateUrl : 'view/discussion.html',
+                controller  : 'discussionController'
+            })
+            .when('/task', {
+                templateUrl : 'view/task.html',
+                controller  : 'taskController'
+            })
+            .when('/calender', {
+                templateUrl : 'view/calender.html',
+                controller  : 'calenderController'
+            })
+            .when('/shared', {
 	            templateUrl : 'view/shared.html',
 	            controller  : 'sharedController'
 	        })
-
-	        // route for the about page
 	        .when('/recycle', {
 	            templateUrl : 'view/recycle.html',
 	            controller  : 'recycleController'
@@ -42,7 +52,23 @@
         $scope.sectionTitle = 'Files';
         $scope.states = {};
         $scope.states.activeItem = ($location.$$url.split('/')[1]=="" || $location.$$url=="")?"files":$location.$$url.split('/')[1];
-        $scope.items = [{
+        $scope.items = [
+        {
+            id: 'discussion',
+            title: 'Discussion',
+            link:'#discussion'
+        },
+        {
+            id: 'task',
+            title: 'Tasks',
+            link:'#task'
+        },
+        {
+            id: 'calender',
+            title: 'Calender',
+            link:'#calender'
+        },
+        {
             id: 'files',
             title: 'Files',
             link:'#'
@@ -334,6 +360,18 @@
 	myproofyapp.controller('recycleController', function($scope) {
 	    $scope.sectionTitle = 'Recycle bin';
 	});
+
+    myproofyapp.controller('discussionController', function($scope) {
+        $scope.sectionTitle = 'Discussion';
+    });
+
+    myproofyapp.controller('taskController', function($scope) {
+        $scope.sectionTitle = 'Tasks';
+    });
+
+    myproofyapp.controller('calenderController', function($scope) {
+        $scope.sectionTitle = 'Calender';
+    });
 
     // Directive
 
