@@ -15,6 +15,10 @@
 	            templateUrl : 'view/dashboard.html',
 	            controller  : 'dashboardController'
 	        })
+             .when('/files', {
+                templateUrl : 'view/files.html',
+                controller  : 'fileController'
+            })
 	        .when('/discussion', {
                 templateUrl : 'view/discussion.html',
                 controller  : 'discussionController'
@@ -48,8 +52,6 @@
         myproofyapp.fn.seekPermission();
         myproofyapp.fn.notificationCount($scope,$http);
         myproofyapp.fn.loadAllDetail($scope,$http);
-
-        $scope.sectionTitle = 'Files';
         $scope.states = {};
         $scope.states.activeItem = ($location.$$url.split('/')[1]=="" || $location.$$url=="")?"files":$location.$$url.split('/')[1];
         $scope.items = [
@@ -71,7 +73,7 @@
         {
             id: 'files',
             title: 'Files',
-            link:'#'
+            link:'#files'
         }, {
             id: 'shared',
             title: 'Shared',
@@ -105,10 +107,15 @@
                 angular.element('.notificationBox').hide();
             }
         }
+    });
+
+    myproofyapp.controller('dashboardController', function($scope) {
+        $scope.sectionTitle = 'Dashboard';
     });    
 
 	// create the controller and inject Angular's $scope
-	myproofyapp.controller('dashboardController', function($scope,$http,$location,$timeout) {
+	myproofyapp.controller('fileController', function($scope,$http,$location,$timeout) {
+        $scope.sectionTitle = 'Files';
         myproofyapp.fn.showLoader(true);
         $http({
 	        method : "GET",
@@ -260,7 +267,7 @@
 	    	commentObject['comment_count'] = drawCount;
 	    	commentObject['imageId'] = parseInt(imageId);
             item.currentTarget.parentElement.parentElement.getElementsByTagName('input')[0].value = '';
-            item.currentTarget.parentElement.parentElement.getElementsByTagName('input')[0].focus(true);
+            //item.currentTarget.parentElement.parentElement.getElementsByTagName('input')[0].focus(true);
 
 	    	$http({
 		        method : "post",
