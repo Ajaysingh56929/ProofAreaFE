@@ -15,91 +15,81 @@
 		</div>
 	</div>
 	<div class="mp-folderItemHeader">
-		<div class="mp-headerCls">
-			<div class="mp-imageIcon mp-sideViewBlock">
-					<i class="material-icons dp48 changeColor">image</i>
+		<div class="mp-headerCls row no-gutters">
+			<div class="col-md-1 col-sm-1 col-xs-12">
+				<i class="material-icons dp48 changeColor">image</i>
 			</div>
-			<div class="mp-imageinfo mp-sideViewBlock">
-				<span class="fileName">
-					Name
-				</span>
+			<div class="col-md-3 col-sm-1 col-xs-12">
+				Name
 			</div>
-			<div class="mp-imageExt mp-sideViewBlock">
-				<span class="fileName">
-					Type
-				</span>
+			<div class="col-md-1 col-sm-1 col-xs-12">
+				Type
 			</div>
-			<div class="mp-imageS mp-sideViewBlock">
-				<span class="fileName">
-					Size
-				</span>
+			<div class="col-md-1 col-sm-1 col-xs-12">
+				Size
 			</div>
-			<div class="mp-imageCount mp-sideViewBlock">
-				<span class="fileName">
-					Comment
-				</span>
+			<div class="col-md-1 col-sm-1 col-xs-12">
+				Comment
 			</div>
-			<div class="rightIcon">
-				<div class="mp-imageShareView mp-sideViewBlock">
-					Share
-				</div>
-				<div class="mp-imageTime mp-sideViewBlock">
-					Created on
-				</div>
-				<div class="mp-imageMenu mp-sideViewBlock">
-					
-				</div>
+			<div class="col-md-2 col-sm-1 col-xs-12">
+				Linked User
+			</div>
+			<div class="col-md-1 col-sm-1 col-xs-12">
+				Share
+			</div>
+			<div class="col-md-1 col-sm-1 col-xs-12">
+				Created on
+			</div>
+			<div class="col-md-1 col-sm-1 col-xs-12">
+				Actions
 			</div>
 		</div>
-		<div class="mp-filesListView" ng-repeat="file in files" data-imageId="{{file.id}}" ng-click="showCanvasPanel($event)" data-url="{{file.image}}">
-			<div class="mp-imageIcon mp-sideViewBlock">
+		<div class="mp-filesListView row no-gutters" ng-repeat="file in files" data-imageId="{{file.id}}" ng-click="showCanvasPanel($event)" data-url="{{file.image}}">
+			<div class="mp-imageIcon  col-md-1 col-sm-1 col-xs-12">
 				<img src="{{file.image}}">
 			</div>
-			<div class="mp-imageinfo mp-sideViewBlock">
+			<div class="col-md-3 col-sm-1 col-xs-12">
 				<span class="fileName">
 					{{file.image_name}}
 				</span>
 			</div>
-			<div class="mp-imageExt mp-sideViewBlock">
+			<div class="col-md-1 col-sm-1 col-xs-12">
 				<span class="fileName">
 					{{file.ext}}
 				</span>
 			</div>
-			<div class="mp-imageS mp-sideViewBlock">
+			<div class="col-md-1 col-sm-1 col-xs-12">
 				<span class="fileName">
 					{{file.size}}
 				</span>
 			</div>
-			<div class="mp-imageCount mp-sideViewBlock">
+			<div class="col-md-1 col-sm-1 col-xs-12">
 				<span class="fileName">
 					{{file.imgcount}}
 				</span>
 			</div>
-			<div class="mp-showUserList mp-sideViewBlock">
+			<div class="col-md-2 col-sm-1 col-xs-12">
 				<span class="fileName showSharedUser" ng-click="showUserList($event,file.id)">
 					Linked user<i class="material-icons dp48">input</i>
 				</span>
 			</div>
-			<div class="rightIcon">
-				<div class="mp-imageShareView mp-sideViewBlock">
-					<ul>
-						<li ng-repeat="userShare in file.share"><div class="userback u_back{{userShare}} u_{{userShare}}"></div></li>
-						<li ng-click="showForm()"><div class="userback mp-shareImage"><i data-imageId="{{file.id}}" class="material-icons dp48 changeColor showSharedUserWindow" ng-click="showSharedUserWindow($event)">share</i></div></li>
-					</ul>
-				</div>
-				<div class="mp-imageTime mp-sideViewBlock">
-					<div uploadedDate="{{file.uploaded_date}}" updatedtime></div>
-				</div>
-				<div class="mp-imageMenu mp-sideViewBlock">
-					<span class="dropdown">
-					  <span><i class="material-icons dp48">more_vert</i></span>
-					  <div class="dropdown-content listDropDown" style="float:right;right: 0;">
-					    <a href="javascript:void(0);" class="listMenuItems" ng-click="shareImage($event,file.id)">Share</a>
-					    <a href="javascript:void(0);" class="listMenuItems" ng-click="deleteImage($event,file.id)">Delete</a>
-					  </div>
-					</span>
-
-				</div>
+			<div class="mp-imageShareView col-md-1 col-sm-1 col-xs-12">
+				<ul>
+					<li ng-repeat="userShare in file.share"><div class="userback u_back{{userShare}} u_{{userShare}}"></div></li>
+					<li ng-click="showForm()"><div class="userback mp-shareImage"><i data-imageId="{{file.id}}" class="material-icons dp48 changeColor showSharedUserWindow" ng-click="showSharedUserWindow($event)">share</i></div></li>
+				</ul>
+			</div>
+			<div class="col-md-1 col-sm-1 col-xs-12">
+				<div uploadedDate="{{file.uploaded_date}}" updatedtime></div>
+			</div>
+			<div class="mp-imageMenu col-md-1 col-sm-1 col-xs-12">
+				<span class="dropdown">
+				  <span><i class="material-icons dp48">more_vert</i></span>
+				  <div class="dropdown-content listDropDown" style="float:right;right: 0;">
+				    <a href="javascript:void(0);" class="listMenuItems" ng-click="shareImage($event,file.id)">Share</a>
+				    <a href="javascript:void(0);" class="listMenuItems" ng-click="deleteImage($event,file.id)">Delete</a>
+				  </div>
+				</span>
 			</div>
 		</div>
 	</div>

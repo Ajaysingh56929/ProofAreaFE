@@ -99,7 +99,6 @@ body, html {
 	color: #fff;
 }
 .mp-folderItemHeader {
-	border: 1px solid #eee;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, .2), 0 -1px 1px rgba(0, 0, 0, .05);
 	background-color: #ffffff;
 }
@@ -109,9 +108,7 @@ body, html {
 	margin: 0;
 }
 .proof-leftNav {
-	position: absolute;
 	bottom: 0;
-	box-sizing: border-box;
 	background-color: #ffffff;
 	width: 208px;
 	border-right: 1px solid #eaeaea;
@@ -140,12 +137,9 @@ a.listMenuItems {
 	bottom: 0;
 }
 .proof-centerArea {
-	flex: auto;
 	position: relative;
-	margin-left: 208px;
 	height: 100%;
 	background: #eee;
-	overflow: auto;
 }
 .proof-TopBar {
 	position: relative;
@@ -176,10 +170,6 @@ a.listMenuItems {
 .notificationPanel::-webkit-scrollbar-thumb {
   background-color: #B4B4B4;
   outline: 1px solid #eee;
-}
-
-.mp-FolderItemContent {
-	padding: 23px 32px 0px 32px;
 }
 .mp-margin {
 	margin: 0;

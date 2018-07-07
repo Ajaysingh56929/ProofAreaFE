@@ -53,7 +53,7 @@
         myproofyapp.fn.notificationCount($scope,$http);
         myproofyapp.fn.loadAllDetail($scope,$http);
         $scope.states = {};
-        $scope.states.activeItem = ($location.$$url.split('/')[1]=="" || $location.$$url=="")?"files":$location.$$url.split('/')[1];
+        $scope.states.activeItem = ($location.$$url.split('/')[1]=="" || $location.$$url=="")?"":$location.$$url.split('/')[1];
         $scope.items = [
         {
             id: 'discussion',
