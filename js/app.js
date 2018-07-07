@@ -1,4 +1,4 @@
-	var myproofyapp = angular.module('myproofyapp', ['ngRoute']);
+	var myproofyapp = angular.module('myproofyapp', ['ngRoute','ngCookies']);
 	myproofyapp.appUrl = "http://127.0.0.1/projects/ProofArea/index.php/";
 	var drawCount = 0,radius = 10,strokeWidth = 4;
     var stokeColor = '#000000';//$('div.dropdown-menu').find('.selected').attr('data-color')
@@ -48,42 +48,44 @@
                 controller  : 'shareController'
             })
 	});
-    myproofyapp.controller('mainController', function($scope,$http,$location,$timeout) {
-        myproofyapp.fn.seekPermission();
-        myproofyapp.fn.notificationCount($scope,$http);
-        myproofyapp.fn.loadAllDetail($scope,$http);
-        $scope.states = {};
-        $scope.states.activeItem = ($location.$$url.split('/')[1]=="" || $location.$$url=="")?"":$location.$$url.split('/')[1];
-        $scope.items = [
-        {
-            id: 'discussion',
-            title: 'Discussion',
-            link:'#discussion'
-        },
-        {
-            id: 'task',
-            title: 'Tasks',
-            link:'#task'
-        },
-        {
-            id: 'calender',
-            title: 'Calender',
-            link:'#calender'
-        },
-        {
-            id: 'files',
-            title: 'Files',
-            link:'#files'
-        }, {
-            id: 'shared',
-            title: 'Shared',
-            link:'#shared'
-        }, {
-            id: 'recycle',
-            title: 'Recycle bin',
-            link:'#recycle'
-        }];
-
+    myproofyapp.controller('mainController', function($scope,$http,$location,$timeout,$cookies) {
+        myproofyapp.fn.checkSession($scope,$http,$cookies.apikey);
+        $scope.Initialize = function(){
+            myproofyapp.fn.seekPermission();
+            myproofyapp.fn.notificationCount($scope,$http);
+            myproofyapp.fn.loadAllDetail($scope,$http);
+            $scope.states = {};
+            $scope.states.activeItem = ($location.$$url.split('/')[1]=="" || $location.$$url=="")?"":$location.$$url.split('/')[1];
+            $scope.items = [
+            {
+                id: 'discussion',
+                title: 'Discussion',
+                link:'#discussion'
+            },
+            {
+                id: 'task',
+                title: 'Tasks',
+                link:'#task'
+            },
+            {
+                id: 'calender',
+                title: 'Calender',
+                link:'#calender'
+            },
+            {
+                id: 'files',
+                title: 'Files',
+                link:'#files'
+            }, {
+                id: 'shared',
+                title: 'Shared',
+                link:'#shared'
+            }, {
+                id: 'recycle',
+                title: 'Recycle bin',
+                link:'#recycle'
+            }];
+        }
         $scope.notificationHideShow = function(item){
             if(angular.element('.notificationBox').css('display')=='none'){
                 angular.element('.notificationBox').show();
@@ -213,7 +215,7 @@
 		document.getElementsByClassName('mainCanvasArea')[0].style.height = window.innerHeight-90+ 'px';
 		document.getElementsByClassName('commentSection')[0].style.height = window.innerHeight-90-23+ 'px';
 
-		document.getElementsByClassName('mainCanvasArea')[0].style.width = window.innerWidth-208-400+ 'px';
+		//document.getElementsByClassName('mainCanvasArea')[0].style.width = window.innerWidth-208-400+ 'px';
 		
         document.getElementsByClassName('detailBox')[0].style.height = window.innerHeight-90+ 'px';
         document.getElementsByClassName('commentList')[0].style.height = window.innerHeight-90-23-42+ 'px';
@@ -492,6 +494,23 @@
             }, function myError(response) {
             });
         },
+        checkSession:function($scope,$http,key){
+            $http({
+                method : "GET",
+                url : myproofyapp.appUrl+"login/checkLogin/"+key,
+                timeout: 90000,
+                useDefaultXhrHeader: false,
+                headers: myproofyapp.fn.headers,
+            }).then(function mySuccess(response) {
+                console.log(response);
+                if(response.data.length>0){
+                    myproofyapp.fn.getUserDetail = {'id':response.data[0].id};
+                    $scope.userId = myproofyapp.fn.getUserDetail.id;
+                    $scope.Initialize();
+                }
+            }, function myError(response) {
+            });
+        },
         loadAllDetail:function($scope,$http){
             $http({
                 method : "GET",
@@ -502,8 +521,6 @@
             }).then(function mySuccess(response) {
                 $scope.total_size = response.data.total_size;
                 $scope.total_percentage = response.data.total_percentage;
-                myproofyapp.fn.getUserDetail = {'id':1};
-                $scope.userId = myproofyapp.fn.getUserDetail.id;
             }, function myError(response) {
             });
         },

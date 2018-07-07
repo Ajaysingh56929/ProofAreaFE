@@ -458,6 +458,10 @@ input[type=text], input[type=password] {
 	border: 1px solid #ccc;
 	box-sizing: border-box;
 }
+.replyCommentPanelArea input,.commentPanelArea input{
+	width: 100% !important;
+	border-radius: 0;
+}
 .form-control {
 	display: inline-block;
 	width: 90%;
@@ -566,6 +570,10 @@ input[type=text], input[type=password] {
 	display: table-cell;
 	padding-right: 6px;
 	vertical-align: top;
+}
+.elipseText{
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .contentDetail {
 	display: table-cell;
