@@ -48,8 +48,9 @@
                 controller  : 'shareController'
             })
 	});
-    myproofyapp.controller('mainController', function($scope,$http,$location,$timeout,$cookies) {
-        myproofyapp.fn.checkSession($scope,$http,$cookies.apikey);
+    myproofyapp.controller('mainController', function($scope,$http,$location,$timeout,$cookies,socket) {
+        console.log(socket);
+        myproofyapp.fn.checkSession($scope,$http,$cookies.apikey,socket);
         $scope.Initialize = function(){
             myproofyapp.fn.seekPermission();
             myproofyapp.fn.notificationCount($scope,$http);
@@ -116,7 +117,7 @@
     });    
 
 	// create the controller and inject Angular's $scope
-	myproofyapp.controller('fileController', function($scope,$http,$location,$timeout) {
+	myproofyapp.controller('fileController', function($scope,$http,$location,$timeout,socket) {
         $scope.sectionTitle = 'Files';
         myproofyapp.fn.showLoader(true);
         $http({
@@ -178,7 +179,7 @@
                 useDefaultXhrHeader: false
             }).then(function mySuccess(response) {
                 window.t = $scope.files;
-                myproofyapp.fn.notifiOtherUsers(response.data.notification,"deleteImage");
+                myproofyapp.fn.notifiOtherUsers(response.data.notification,"deleteImage",socket);
                 myproofyapp.fn.showLoader(false);
             }, function myError(response) {
             });
@@ -202,7 +203,7 @@
                     var index = 0;
                     $scope.files = $scope.files.filter(function(e,i){ if(parseInt(e.id)!=parseInt(dataObj.id)){ return true; }else{ index = i; return false; }});
                     $scope.files.splice(index, 0,response.data.notification.data);
-                    myproofyapp.fn.notifiOtherUsers(response.data.notification,"fileshare");
+                    myproofyapp.fn.notifiOtherUsers(response.data.notification,"fileshare",socket);
                 }
                 myproofyapp.fn.showLoader(false);
             }, function myError(response) {
@@ -211,7 +212,7 @@
         $scope.initFileUploadfunction();
 	});
 
-	myproofyapp.controller('proofController', function($scope,$http,$route) {
+	myproofyapp.controller('proofController', function($scope,$http,$route,socket) {
 		document.getElementsByClassName('mainCanvasArea')[0].style.height = window.innerHeight-90+ 'px';
 		document.getElementsByClassName('commentSection')[0].style.height = window.innerHeight-90-23+ 'px';
 
@@ -279,7 +280,7 @@
 	            useDefaultXhrHeader: false
 		    }).then(function mySuccess(response) {
                 $scope.comments.push(response.data.data[0]);
-                myproofyapp.fn.notifiOtherUsers(response.data,"addComment");
+                myproofyapp.fn.notifiOtherUsers(response.data.notification,"addComment",socket);
                 myproofyapp.fn.showLoader(false);
                 $scope.clearCanvasView();
                 myproofyapp.loadImageOnCanvas($scope.imageData.image);
@@ -326,10 +327,10 @@
         }
 	});
 
-	myproofyapp.controller('sharedController', function($scope) {
+	myproofyapp.controller('sharedController', function($scope,socket) {
 	    $scope.sectionTitle = 'Shared';
 	});
-    myproofyapp.controller('shareController', function($scope,$http,$route) {
+    myproofyapp.controller('shareController', function($scope,$http,$route,socket) {
         $scope.sectionTitle = 'Shared User';
         var imageId = $route.current.params.id;
         $http({
@@ -359,7 +360,7 @@
                 data:JSON.stringify(unlinkFileObj),
                 useDefaultXhrHeader: false
             }).then(function mySuccess(response) {
-                myproofyapp.fn.notifiOtherUsers(response.data.notification,"fileunshare");
+                myproofyapp.fn.notifiOtherUsers(response.data.notification,"fileunshare",socket);
                 myproofyapp.fn.showLoader(false);
             }, function myError(response) {
             });
@@ -494,7 +495,7 @@
             }, function myError(response) {
             });
         },
-        checkSession:function($scope,$http,key){
+        checkSession:function($scope,$http,key,socket){
             $http({
                 method : "GET",
                 url : myproofyapp.appUrl+"login/checkLogin/"+key,
@@ -502,10 +503,18 @@
                 useDefaultXhrHeader: false,
                 headers: myproofyapp.fn.headers,
             }).then(function mySuccess(response) {
-                console.log(response);
                 if(response.data.length>0){
                     myproofyapp.fn.getUserDetail = {'id':response.data[0].id};
                     $scope.userId = myproofyapp.fn.getUserDetail.id;
+                    socket.emit('onlineUser',{userId:$scope.userId});
+                    socket.on('onlineUserUserList',function(data){
+                        console.log(data);
+                    });
+                    socket.on("io_socket_responseData",function(data){
+                        console.log(data);
+                        myproofyapp.fn.notificationCountChange();
+                        myproofyapp.fn.showDesktopNotification(data);
+                    });
                     $scope.Initialize();
                 }
             }, function myError(response) {
@@ -534,7 +543,7 @@
             }
         },
         getUserDetail:{},
-        notifiOtherUsers:function(response,status){
+        notifiOtherUsers:function(response,status,socket){
             var notifi = new Object();
             if(status=="deleteImage"){
                 notifi['notification'] = response;
@@ -566,12 +575,7 @@
                 notifi['action'] = status;
                 //notifi['selfUser'] = myproofyapp.fn.getUserDetail.id;
             }
-            //socket.emit("notifiUser",notifi);
-            //socket.on("io_socket_responseData",function(data){
-            //    console.log(data);
-                myproofyapp.fn.notificationCountChange();
-                myproofyapp.fn.showDesktopNotification(notifi);
-            //});
+            socket.emit("notifiUser",notifi);
         },
         getStyleCnt: function(className) {
             var css = document.getElementById('userCss');
@@ -636,8 +640,8 @@
                 recData+=' has removed '+data.notification.data.image+' file';
             }
             if(data.action=="addComment"){
-                recData+=myproofyapp.fn.getStyleCnt(".u_name"+data.notification.notification.notifi_record.updated_by);
-                recData+=' has posted a comment on the file - '+data.notification.notification.notifi_record.image+' file';
+                recData+=myproofyapp.fn.getStyleCnt(".u_name"+data.notification.notifi_record.updated_by);
+                recData+=' has posted a comment on the file - '+data.notification.notifi_record.image+' file';
             }
             if(data.action=="deleteComment"){
                 recData+=myproofyapp.fn.getStyleCnt(".u_name"+data.notification.notifi_record.updated_by);
@@ -1145,3 +1149,26 @@
             return this.promise;      
         }
     })*/
+    myproofyapp.factory('socket', function ($rootScope) {
+      var socket = io.connect('http://127.0.0.1:7000');
+      return {
+        on: function (eventName, callback) {
+          socket.on(eventName, function () {  
+            var args = arguments;
+            $rootScope.$apply(function () {
+              callback.apply(socket, args);
+            });
+          });
+        },
+        emit: function (eventName, data, callback) {
+          socket.emit(eventName, data, function () {
+            var args = arguments;
+            $rootScope.$apply(function () {
+              if (callback) {
+                callback.apply(socket, args);
+              }
+            });
+          })
+        }
+      };
+    });

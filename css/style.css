@@ -44,6 +44,9 @@ body {
     color: #ACA6A6;
     font-size: 13px;
 }
+.mp-FolderItemContent{
+	padding: 25px !important;
+}
 .mp-FolderItemContent.emptyArea {
 	padding: 0;
 	position: absolute;
@@ -385,10 +388,6 @@ a.listMenuItems {
 	border: 2px solid #fff;
 	margin-left: -10px;
 }
-.mp-imageShareView {
-	width: 100px;
-	text-align: right;
-}
 .showImageView div {
 	display: table-cell;
 	padding: 0;
@@ -578,7 +577,7 @@ input[type=text], input[type=password] {
 .contentDetail {
 	display: table-cell;
 }
-.notificationContent .fade {
+.notificationContent .fadeText {
 	color: #A8A3A3;
 	font-size: 13px;
 	margin: 0;

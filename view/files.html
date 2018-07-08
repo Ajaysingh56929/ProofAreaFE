@@ -16,7 +16,7 @@
 	</div>
 	<div class="mp-folderItemHeader">
 		<div class="mp-headerCls row no-gutters">
-			<div class="col-md-1 col-sm-1 col-xs-12">
+			<div class="col-md-1 col-sm-1 col-xs-12 text-center">
 				<i class="material-icons dp48 changeColor">image</i>
 			</div>
 			<div class="col-md-3 col-sm-1 col-xs-12">
@@ -28,24 +28,24 @@
 			<div class="col-md-1 col-sm-1 col-xs-12">
 				Size
 			</div>
-			<div class="col-md-1 col-sm-1 col-xs-12">
+			<div class="col-md-1 col-sm-1 col-xs-12 text-center">
 				Comment
 			</div>
-			<div class="col-md-2 col-sm-1 col-xs-12">
+			<div class="col-md-2 col-sm-1 col-xs-12 text-center">
 				Linked User
 			</div>
 			<div class="col-md-1 col-sm-1 col-xs-12">
 				Share
 			</div>
-			<div class="col-md-1 col-sm-1 col-xs-12">
+			<div class="col-md-1 col-sm-1 col-xs-12 text-right">
 				Created on
 			</div>
-			<div class="col-md-1 col-sm-1 col-xs-12">
-				Actions
+			<div class="col-md-1 col-sm-1 col-xs-12 text-right">
+				
 			</div>
 		</div>
 		<div class="mp-filesListView row no-gutters" ng-repeat="file in files" data-imageId="{{file.id}}" ng-click="showCanvasPanel($event)" data-url="{{file.image}}">
-			<div class="mp-imageIcon  col-md-1 col-sm-1 col-xs-12">
+			<div class="mp-imageIcon  col-md-1 col-sm-1 col-xs-12 text-center">
 				<img src="{{file.image}}">
 			</div>
 			<div class="col-md-3 col-sm-1 col-xs-12 elipseText">
@@ -63,12 +63,12 @@
 					{{file.size}}
 				</span>
 			</div>
-			<div class="col-md-1 col-sm-1 col-xs-12">
+			<div class="col-md-1 col-sm-1 col-xs-12 text-center">
 				<span class="fileName">
 					{{file.imgcount}}
 				</span>
 			</div>
-			<div class="col-md-2 col-sm-1 col-xs-12">
+			<div class="col-md-2 col-sm-1 col-xs-12 text-center">
 				<span class="fileName showSharedUser" ng-click="showUserList($event,file.id)">
 					Linked user<i class="material-icons dp48">input</i>
 				</span>
@@ -79,10 +79,10 @@
 					<li ng-click="showForm()"><div class="userback mp-shareImage"><i data-imageId="{{file.id}}" class="material-icons dp48 changeColor showSharedUserWindow" ng-click="showSharedUserWindow($event)">share</i></div></li>
 				</ul>
 			</div>
-			<div class="col-md-1 col-sm-1 col-xs-12">
+			<div class="col-md-1 col-sm-1 col-xs-12 text-right">
 				<div uploadedDate="{{file.uploaded_date}}" updatedtime></div>
 			</div>
-			<div class="mp-imageMenu col-md-1 col-sm-1 col-xs-12">
+			<div class="mp-imageMenu col-md-1 col-sm-1 col-xs-12 text-right">
 				<span class="dropdown">
 				  <span><i class="material-icons dp48">more_vert</i></span>
 				  <div class="dropdown-content listDropDown" style="float:right;right: 0;">

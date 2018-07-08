@@ -53,7 +53,7 @@
 										</div>
 										<div class="contentDetail">
 											<span class="userName u_name{{notifications.updated_by}}"></span>
-											<span class="fade">&nbsp;has removed&nbsp;<span class="dark" data-id="{{notifications.content.image}}">{{notifications.content.image}}</span>&nbsp;file</span>
+											<span class="fadeText">&nbsp;has removed&nbsp;<span class="dark" data-id="{{notifications.content.image}}">{{notifications.content.image}}</span>&nbsp;file</span>
 											<div class="showImageView">
 												<img src="{{notifications.content.image}}">
 											</div>
@@ -71,10 +71,10 @@
 	                                    <span class="userName u_name{{notifications.updated_by}}"></span>
 	                                    
 	                                    <span ng-if="notifications.content.approve==true">
-	                                    	<span class="fade">&nbsp;has approve &nbsp;<span class="dark">{{notifications.content.image}}</span>&nbsp;file</span>
+	                                    	<span class="fadeText">&nbsp;has approve &nbsp;<span class="dark">{{notifications.content.image}}</span>&nbsp;file</span>
 	                                    </span>
 	                                    <span ng-if="notifications.content.approve==false">
-	                                    	<span class="fade">&nbsp;has disapprove &nbsp;<span class="dark">{{notifications.content.image}}</span>&nbsp;file</span>
+	                                    	<span class="fadeText">&nbsp;has disapprove &nbsp;<span class="dark">{{notifications.content.image}}</span>&nbsp;file</span>
 	                                    </span>
 	                                    <div class="showImageView">
 	                                    <img src="{{notifications.content.image}}">
@@ -95,7 +95,7 @@
 
 
 
-                                    <span class="fade">&nbsp;has shared&nbsp;<span class="dark">{{notifications.content.image}}</span>&nbsp;file with <span class="dark"></span> &nbsp;</span>
+                                    <span class="fadeText">&nbsp;has shared&nbsp;<span class="dark">{{notifications.content.image}}</span>&nbsp;file with <span class="dark"></span> &nbsp;</span>
 
                                     <div class="showImageView">
                                     <img src="{{notifications.content.image}}">
@@ -112,9 +112,9 @@
                                     </div>
                                     <div class="contentDetail">
 	                                    <span class="userName u_name{{notifications.updated_by}}"></span>
-	                                    <span class="fade">&nbsp;has posted a comment on the file&nbsp;-<span class="dark">{{notifications.content.image}}</span>&nbsp;file</span>
+	                                    <span class="fadeText">&nbsp;has posted a comment on the file&nbsp;-<span class="dark">{{notifications.content.image}}</span>&nbsp;file</span>
 	                                    <div class="showImageView">
-		                                    <div class="imageCls"><img src="uploadImage/'+response[i].content.image+'">
+		                                    <div class="imageCls"><img src="{{notifications.content.image}}">
 		                                    <span uploadedDate="{{notifications.updated_date}}" updatedtime></span>
 		                                    <div><p>{{notifications.content.comment}}</p></div>
 		                                    </div>
